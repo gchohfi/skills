@@ -68,21 +68,21 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* Card do Gerente Supervisor */}
+      {/* Card do Gerente Supervisor — destaque principal */}
       <Link href="/supervisor" className="block group">
-        <div className="rounded-xl bg-[#1a1a2e] p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 transition-shadow hover:shadow-xl">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl">
+        <div className="w-full rounded-xl bg-[#1a1a2e] p-6 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-lg hover:shadow-2xl transition-shadow">
+          <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-3xl">
             👔
           </span>
-          <div className="flex-1">
-            <h2 className="text-lg font-bold text-white">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg font-bold text-white leading-tight">
               Gerente Supervisor
             </h2>
-            <p className="mt-1 text-sm text-white/60">
-              Coordene e supervisione todo o processo de venda. Receba análises, recomendações e próximos passos priorizados.
+            <p className="mt-1 text-sm text-white/60 leading-relaxed">
+              Coordene e supervisione todo o processo de venda. Veja o status de cada módulo, receba recomendações e próximos passos priorizados.
             </p>
           </div>
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-[#c9943a] group-hover:underline">
+          <span className="inline-flex items-center gap-1 text-sm font-medium text-white/80 group-hover:text-white transition-colors whitespace-nowrap">
             Acessar
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
