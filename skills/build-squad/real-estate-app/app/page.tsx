@@ -68,6 +68,29 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* Card do Gerente Supervisor */}
+      <Link href="/supervisor" className="block group">
+        <div className="rounded-xl bg-[#1a1a2e] p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 transition-shadow hover:shadow-xl">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl">
+            👔
+          </span>
+          <div className="flex-1">
+            <h2 className="text-lg font-bold text-white">
+              Gerente Supervisor
+            </h2>
+            <p className="mt-1 text-sm text-white/60">
+              Coordene e supervisione todo o processo de venda. Receba análises, recomendações e próximos passos priorizados.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1 text-sm font-medium text-[#c9943a] group-hover:underline">
+            Acessar
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </Link>
+
       {/* Cabeçalho do dashboard */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">
