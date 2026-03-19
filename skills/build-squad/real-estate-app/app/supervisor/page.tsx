@@ -1,9 +1,8 @@
 'use client';
 
-import { useMemo } from 'react';
 import Link from 'next/link';
 import ModuleHeader from '../../components/layout/ModuleHeader';
-import StatusDashboard, { StatusItem } from '../../components/supervisor/StatusDashboard';
+import StatusDashboard from '../../components/supervisor/StatusDashboard';
 import SupervisorPanel from '../../components/supervisor/SupervisorPanel';
 import Button from '../../components/ui/Button';
 import { usePropertyContext } from '../../context/PropertyContext';
@@ -41,59 +40,6 @@ export default function SupervisorPage() {
     propostaAceita,
   };
 
-  const statusItems: StatusItem[] = useMemo(() => [
-    {
-      modulo: 'Imóvel',
-      icone: '🏠',
-      status: property ? 'concluido' : 'atencao',
-      detalhe: property ? `${property.tipo} - ${property.cidade}/${property.estado}` : 'Configure seu imóvel para começar',
-    },
-    {
-      modulo: 'Precificação',
-      icone: '💰',
-      status: property ? 'em_andamento' : 'pendente',
-      detalhe: property ? 'Disponível para análise' : 'Aguardando cadastro do imóvel',
-    },
-    {
-      modulo: 'Anúncio',
-      icone: '📝',
-      status: temAnuncio ? 'concluido' : (property ? 'pendente' : 'pendente'),
-      detalhe: temAnuncio ? 'Anúncio gerado' : 'Aguardando geração',
-    },
-    {
-      modulo: 'Marketing',
-      icone: '📣',
-      status: temEstrategia ? 'concluido' : 'pendente',
-      detalhe: temEstrategia ? 'Estratégia definida' : 'Aguardando planejamento',
-    },
-    {
-      modulo: 'Visitas',
-      icone: '📅',
-      status: showings.length > 0 ? 'em_andamento' : 'pendente',
-      detalhe: showings.length > 0
-        ? `${showings.length} visita(s), ${visitasConfirmadas} confirmada(s)`
-        : 'Nenhuma visita agendada',
-    },
-    {
-      modulo: 'Documentos',
-      icone: '📄',
-      status: docsPreenchidos === totalDocumentos ? 'concluido' : (docsPreenchidos > 0 ? 'em_andamento' : 'pendente'),
-      detalhe: `${docsPreenchidos} de ${totalDocumentos} preenchidos`,
-    },
-    {
-      modulo: 'Negociação',
-      icone: '🤝',
-      status: propostaAceita ? 'concluido' : (offers.length > 0 ? 'em_andamento' : 'pendente'),
-      detalhe: propostaAceita
-        ? 'Proposta aceita!'
-        : offers.length > 0
-          ? `${offers.length} proposta(s) recebida(s)`
-          : 'Nenhuma proposta recebida',
-    },
-  ], [property, temAnuncio, temEstrategia, showings, visitasConfirmadas, docsPreenchidos, offers, propostaAceita]);
-
-  const pendentes = statusItems.filter(i => i.status === 'pendente' || i.status === 'atencao');
-
   function handleAnalise() {
     trigger('/api/supervisor', { statusData });
   }
@@ -107,7 +53,7 @@ export default function SupervisorPage() {
       />
 
       {/* Status Dashboard */}
-      <StatusDashboard items={statusItems} />
+      <StatusDashboard statusData={statusData} />
 
       {/* Botão de análise */}
       <div className="flex justify-center">
@@ -120,7 +66,7 @@ export default function SupervisorPage() {
       <SupervisorPanel text={response} isLoading={isLoading} />
 
       {/* Ações rápidas — módulos que precisam de atenção */}
-      {pendentes.length > 0 && (
+      {(!property || !temAnuncio || !temEstrategia || showings.length === 0 || docsPreenchidos < totalDocumentos) && (
         <div className="rounded-xl bg-amber-50 border border-amber-200 p-5">
           <h3 className="text-sm font-semibold text-amber-800 mb-3">
             Módulos que precisam de atenção
