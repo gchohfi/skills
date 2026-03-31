@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/precificacao', label: 'Precificação', icon: '💰' },
   { href: '/anuncio', label: 'Anúncio', icon: '📝' },
   { href: '/marketing', label: 'Marketing', icon: '📣' },
+  { href: '/carrossel', label: 'Carrossel', icon: '🎨' },
   { href: '/visitas', label: 'Visitas', icon: '📅' },
   { href: '/documentos', label: 'Documentos', icon: '📄' },
   { href: '/negociacao', label: 'Negociação', icon: '🤝' },

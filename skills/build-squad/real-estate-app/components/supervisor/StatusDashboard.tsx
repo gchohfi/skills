@@ -53,6 +53,7 @@ export default function StatusDashboard({ statusData }: StatusDashboardProps) {
     property,
     temAnuncio,
     temEstrategia,
+    temCarrossel,
     quantidadeVisitas,
     visitasConfirmadas,
     documentosPreenchidos,
@@ -81,6 +82,12 @@ export default function StatusDashboard({ statusData }: StatusDashboardProps) {
       icone: '📣',
       status: temEstrategia ? 'concluido' : 'pendente',
       detalhe: temEstrategia ? 'Estratégia de marketing definida' : 'Estratégia não planejada',
+    },
+    {
+      modulo: 'Designer — Carrossel',
+      icone: '🎨',
+      status: temCarrossel ? 'concluido' : 'pendente',
+      detalhe: temCarrossel ? 'Carrossel de Instagram gerado' : 'Carrossel ainda nao gerado',
     },
     {
       modulo: 'Secretário — Visitas',

@@ -4,6 +4,7 @@ export interface SupervisorStatusData {
   property: PropertyProfile | null;
   temAnuncio: boolean;
   temEstrategia: boolean;
+  temCarrossel: boolean;
   quantidadeVisitas: number;
   visitasConfirmadas: number;
   documentosPreenchidos: number;
@@ -12,13 +13,14 @@ export interface SupervisorStatusData {
   propostaAceita: boolean;
 }
 
-export const systemPrompt = `Você é o Gerente Supervisor de uma equipe de IA especializada em venda de imóveis no Brasil. Sua função é coordenar e supervisionar 6 agentes especializados: Avaliador (precificação), Copywriter (anúncio), Marqueteiro (marketing), Secretário (visitas), Assessor Jurídico (documentos) e Negociador (negociação). Analise o status atual de cada módulo e forneça: 1) Status geral da venda (em uma escala: Iniciando / Em Andamento / Avançado / Próximo do Fechamento), 2) O que já foi feito, 3) O que está pendente e precisa de atenção urgente, 4) Próximos passos recomendados na ordem de prioridade, 5) Alertas e riscos, 6) Dicas estratégicas para acelerar a venda. Seja direto e prático como um gerente de projeto experiente.`;
+export const systemPrompt = `Você é o Gerente Supervisor de uma equipe de IA especializada em venda de imóveis no Brasil. Sua função é coordenar e supervisionar 7 agentes especializados: Avaliador (precificação), Copywriter (anúncio), Marqueteiro (marketing), Designer (carrossel Instagram), Secretário (visitas), Assessor Jurídico (documentos) e Negociador (negociação). Analise o status atual de cada módulo e forneça: 1) Status geral da venda (em uma escala: Iniciando / Em Andamento / Avançado / Próximo do Fechamento), 2) O que já foi feito, 3) O que está pendente e precisa de atenção urgente, 4) Próximos passos recomendados na ordem de prioridade, 5) Alertas e riscos, 6) Dicas estratégicas para acelerar a venda. Seja direto e prático como um gerente de projeto experiente.`;
 
 export function buildUserPrompt(statusData: SupervisorStatusData): string {
   const {
     property,
     temAnuncio,
     temEstrategia,
+    temCarrossel,
     quantidadeVisitas,
     visitasConfirmadas,
     documentosPreenchidos,
@@ -52,16 +54,19 @@ ${imovelInfo}
 4. MARQUETEIRO (Marketing):
 - Estratégia de marketing gerada: ${temEstrategia ? 'Sim' : 'Não'}
 
-5. SECRETÁRIO (Visitas):
+5. DESIGNER (Carrossel Instagram):
+- Carrossel gerado: ${temCarrossel ? 'Sim' : 'Não'}
+
+7. SECRETÁRIO (Visitas):
 - Total de visitas agendadas: ${quantidadeVisitas}
 - Visitas confirmadas: ${visitasConfirmadas}
 - Visitas pendentes de confirmação: ${quantidadeVisitas - visitasConfirmadas}
 
-6. ASSESSOR JURÍDICO (Documentos):
+8. ASSESSOR JURÍDICO (Documentos):
 - Documentos preenchidos: ${documentosPreenchidos} de ${totalDocumentos}
 - Progresso: ${totalDocumentos > 0 ? Math.round((documentosPreenchidos / totalDocumentos) * 100) : 0}%
 
-7. NEGOCIADOR (Negociação):
+9. NEGOCIADOR (Negociação):
 - Propostas recebidas: ${quantidadePropostas}
 - Proposta aceita: ${propostaAceita ? 'Sim - venda em fase de fechamento!' : 'Não'}
 

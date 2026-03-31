@@ -23,6 +23,7 @@ export default function SupervisorPage() {
   // Rastrear conclusão dos módulos via localStorage
   const [temAnuncio] = useLocalStorage<boolean>('via_anuncio', false);
   const [temEstrategia] = useLocalStorage<boolean>('via_estrategia', false);
+  const [temCarrossel] = useLocalStorage<boolean>('via_carrossel', false);
   const [documentosPreenchidos] = useLocalStorage<number>('via_documentos_count', 0);
 
   const visitasConfirmadas = showings.filter((s) => s.status === 'confirmado').length;
@@ -32,6 +33,7 @@ export default function SupervisorPage() {
     property: property ?? null,
     temAnuncio,
     temEstrategia,
+    temCarrossel,
     quantidadeVisitas: showings.length,
     visitasConfirmadas,
     documentosPreenchidos,
@@ -50,6 +52,7 @@ export default function SupervisorPage() {
     { show: !!property, href: '/precificacao', icon: '💰', label: 'Precificação' },
     { show: !temAnuncio, href: '/anuncio', icon: '📝', label: 'Criar Anúncio' },
     { show: !temEstrategia, href: '/marketing', icon: '📣', label: 'Planejar Marketing' },
+    { show: !temCarrossel, href: '/carrossel', icon: '🎨', label: 'Criar Carrossel' },
     { show: showings.length === 0, href: '/visitas', icon: '📅', label: 'Agendar Visitas' },
     {
       show: documentosPreenchidos < TOTAL_DOCUMENTOS,
