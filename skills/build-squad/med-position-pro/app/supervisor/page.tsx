@@ -24,7 +24,7 @@ export default function SupervisorPage() {
   const [brandMemory] = useLocalStorage<BrandMemoryEntry[]>('mpp_brand_memory', []);
 
   const status: SupervisorStatusData = {
-    temPerfil: !!doctor,
+    doctor: doctor || null,
     temDiagnostico: diagDone,
     temConcorrencia: compDone,
     temReferencias: refDone,
@@ -32,13 +32,14 @@ export default function SupervisorPage() {
     temPlanoEditorial: planDone,
     temCarrossel: carDone,
     temCompliance: complDone,
+    quantidadePosts: posts.length,
     temMetricas: posts.length > 0,
-    temBrandMemory: brandMemory.length > 0,
+    quantidadeMemoria: brandMemory.length,
   };
 
   function run() {
     if (!doctor) return;
-    trigger('/api/supervisor', { doctor, status });
+    trigger('/api/supervisor', status);
   }
 
   return (

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDoctor } from '@/context/DoctorContext';
 import { useStreamingResponse } from '@/hooks/useStreamingResponse';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { PostMetrics, BrandMemoryEntry } from '@/types/metrics';
+import { PostMetrics } from '@/types/metrics';
 import ModuleHeader from '@/components/layout/ModuleHeader';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
@@ -15,7 +15,6 @@ export default function MetricsLearningPage() {
   const { doctor } = useDoctor();
   const { response, isLoading, error, trigger } = useStreamingResponse();
   const [posts, setPosts] = useLocalStorage<PostMetrics[]>('mpp_posts', []);
-  const [brandMemory] = useLocalStorage<BrandMemoryEntry[]>('mpp_brand_memory', []);
   const [form, setForm] = useState(emptyPost);
   const [showForm, setShowForm] = useState(false);
 
@@ -31,7 +30,7 @@ export default function MetricsLearningPage() {
 
   function analyze() {
     if (!doctor) return;
-    trigger('/api/metrics-learning', { doctor, posts, brandMemory });
+    trigger('/api/metrics-learning', { doctor, posts });
   }
 
   const ic = 'w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-[#e2c799] focus:outline-none';
