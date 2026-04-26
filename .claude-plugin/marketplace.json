@@ -50,6 +50,15 @@
       "skills": [
         "./skills/claude-api"
       ]
+    },
+    {
+      "name": "image-generation",
+      "description": "Generate images from a text prompt using OpenAI's gpt-image-1 model. Reads OPENAI_API_KEY from the environment.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/image-generation"
+      ]
     }
   ]
 }
