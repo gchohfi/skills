@@ -14,6 +14,22 @@ from pathlib import Path
 
 from openai import OpenAI, OpenAIError
 
+
+def load_dotenv() -> None:
+    """Load OPENAI_API_KEY from a .env file in the skill dir or repo root, if present."""
+    here = Path(__file__).resolve().parent
+    for candidate in (here.parent / ".env", here.parent.parent.parent / ".env"):
+        if not candidate.is_file():
+            continue
+        for raw in candidate.read_text().splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key, value = key.strip(), value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
 MODEL = "gpt-image-1"
 VALID_SIZES = {"1024x1024", "1024x1536", "1536x1024"}
 VALID_QUALITIES = {"low", "medium", "high"}
@@ -39,10 +55,12 @@ def output_paths(base: Path, n: int) -> list[Path]:
 
 def main() -> int:
     args = parse_args()
+    load_dotenv()
 
     if not os.environ.get("OPENAI_API_KEY"):
         print(
-            "OPENAI_API_KEY is not set. Export it in your shell before running this skill.",
+            "OPENAI_API_KEY is not set. Add it to skills/image-generation/.env "
+            "(see .env.example) or export it in your shell.",
             file=sys.stderr,
         )
         return 2
